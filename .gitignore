@@ -1,0 +1,29 @@
+# Composer dependencies
+/vendor/
+composer.lock
+
+# Environment variables
+.env
+.env.local
+.env.development
+.env.testing
+.env.production
+
+# IDE specific files
+.idea/             # PhpStorm/IntelliJ IDEA
+.vscode/           # VS Code
+.DS_Store          # macOS specific
+
+# Logs and temporary files
+/storage/*.log     # Laravelなどのログファイル
+/var/log/          # 一般的なログディレクトリ
+/tmp/              # 一時ファイル
+*.log              # その他のログファイル
+*.sqlite           # SQLiteデータベースファイルなど
+
+# Build artifacts
+/build/
+/dist/
+
+# Test related files
+/coverage/         # コードカバレッジレポート
