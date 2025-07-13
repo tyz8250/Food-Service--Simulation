@@ -1,5 +1,5 @@
 <?php
-namespace App\Models; // 名前空間は App\Models 
+namespace App\Models;
 
 // 使うクラスを use する
 use App\ConcreteFoods\HawaiianPizza;
@@ -7,19 +7,23 @@ use App\ConcreteFoods\Spaghetti;
 use App\Models\FoodItem; // FoodItem も使っているので use されているはず
 use App\Models\FoodOrder; // FoodOrder も使っているので use されているはず
 use App\Models\Invoice; // Invoice クラスの定義をここでインポート
+use App\Users\Employee; // Employee クラスを使うので追加
 
 class Restaurant {
     /** @var FoodItem[] $menu // メニューは FoodItem の配列 */
     private array $menu;
-    // private array $employees; // 後で追加するプロパティ
+    /** @var Employee[] $employees */ 
+    private array $employees;
 
-    public function __construct() {
+    public function __construct(array $employees) {
+        
         // レストランのメニューを初期化
         $this->menu = [
             new HawaiianPizza(12.50), // 価格を設定
             new Spaghetti(9.75),
             // 他のメニューアイテムをここに追加
         ];
+        $this->employees = $employees;
         // ★★★ デバッグ用に追加 ★★★
         echo "--- Restaurant::__construct デバッグ情報 ---" . PHP_EOL;
         echo "メニューアイテム数: " . count($this->menu) . PHP_EOL;
@@ -27,11 +31,18 @@ class Restaurant {
             echo "  - " . $item->getName() . " (" . $item::getCategory() . ") - ¥" . $item->getPrice() . PHP_EOL;
         }
         echo "---------------------------------------" . PHP_EOL . PHP_EOL;
-        // ★★★ ここまで追加したら、一度実行して何が表示されるか教えてください ★★★
+    } 
 
-
-        // $this->employees = $employees; // 従業員も後で初期化
+    /**
+     * レストランの現在のメニューを取得します。
+     * @return FoodItem[] メニューアイテムの配列
+     */
+    public function getMenu(): array {
+        return $this->menu;
     }
+
+
+    // $this->employees = $employees; // 従業員も後で初期化
 
     /**
      * 顧客からの注文を受け付け、請求書を生成する
